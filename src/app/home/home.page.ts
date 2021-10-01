@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
+import "animate.css";
 
 @Component({
   selector: 'app-home',
@@ -7,8 +8,14 @@ import { AlertController, ToastController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  tasks: any[] = [];
+  constructor(private alertCtrl: AlertController, private toastCtrl: ToastController) {
+    let taskJson= localStorage.getItem('taskDb');
 
-  constructor(private alertCtrl: AlertController, private toastCtrl: ToastController) { }
+    if(taskJson!=null){
+      this.tasks = JSON.parse(taskJson);
+    }
+  }
 
   async showAdd() {
     const alert = await this.alertCtrl.create({
@@ -54,6 +61,18 @@ export class HomePage {
       return;
     }
 
-    let task = { name: newTask, done: false }
+    let task = { name: newTask, done: false};
+
+    this.tasks.push(task);
+    this.updatLocalStorage();
+  }
+
+  updatLocalStorage(){
+    localStorage.setItem('taskDb', JSON.stringify(this.tasks));
+  }
+
+  delete(task: any){
+    this.tasks = this.tasks.filter(taskArray=> task != taskArray);
+    this.updatLocalStorage();
   }
 }

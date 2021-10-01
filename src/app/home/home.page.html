@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="#bd7595">
     <ion-title>
       Study List
     </ion-title>
@@ -7,14 +7,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-item-sliding>
+  <ion-item-sliding *ngFor="let task of tasks">
     <ion-item>
-      <ion-checkbox slot="start">
-      </ion-checkbox>
-      <ion-input></ion-input>
+      <ion-label>{{task.name}}</ion-label>
+      <ion-checkbox slot="start"></ion-checkbox>
     </ion-item>
     <ion-item-options side="end">
-      <ion-item-option (click)="unread(item)">Unread</ion-item-option>
+      <ion-item-option (click)="delete(task)">
+        <ion-icon name="trash"></ion-icon>
+      </ion-item-option>
     </ion-item-options>
   </ion-item-sliding>
 
