@@ -1,0 +1,7 @@
+{
+  "name": "study_list",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
